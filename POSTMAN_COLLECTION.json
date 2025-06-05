@@ -1,0 +1,553 @@
+{
+  "info": {
+    "name": "Unified Backend - Student Attendance System",
+    "description": "Complete API collection for testing the unified backend system",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Get Server Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('authToken', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"siswa1\",\n  \"password\": \"siswa1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Teacher",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('authToken', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"guru1\",\n  \"password\": \"guru1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newuser\",\n  \"password\": \"password123\",\n  \"role\": \"siswa\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student (Siswa)",
+      "item": [
+        {
+          "name": "Get Student Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/siswa/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "siswa", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get Student Attendance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/siswa/absensi",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "siswa", "absensi"]
+            }
+          }
+        },
+        {
+          "name": "Update Student Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Aldi Updated\",\n  \"alamat\": \"Jl. Baru No. 123\",\n  \"no_hp\": \"081234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/siswa/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "siswa", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get Students by Class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/siswa/list?id_kelas=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "siswa", "list"],
+              "query": [
+                {
+                  "key": "id_kelas",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teacher (Guru)",
+      "item": [
+        {
+          "name": "Get Teacher Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guru/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guru", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Teacher Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama\": \"Pak Budi Updated\",\n  \"alamat\": \"Jl. Guru Baru No. 123\",\n  \"no_hp\": \"081234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/guru/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guru", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Get Teacher Classes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guru/kelas?guru_id=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guru", "kelas"],
+              "query": [
+                {
+                  "key": "guru_id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Teacher Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guru/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guru", "dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance (Absen)",
+      "item": [
+        {
+          "name": "Submit Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_kelas\": 1,\n  \"tanggal\": \"2025-06-05\",\n  \"guru_id\": \"1\",\n  \"absensi\": [\n    {\n      \"id_siswa\": \"1\",\n      \"status\": \"hadir\"\n    },\n    {\n      \"id_siswa\": \"2\",\n      \"status\": \"sakit\"\n    },\n    {\n      \"id_siswa\": \"3\",\n      \"status\": \"izin\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/absen/submit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "absen", "submit"]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance by Class and Date",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/absen?id_kelas=1&tanggal=2025-06-05",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "absen"],
+              "query": [
+                {
+                  "key": "id_kelas",
+                  "value": "1"
+                },
+                {
+                  "key": "tanggal",
+                  "value": "2025-06-05"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Attendance Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/absen/stats?id_kelas=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "absen", "stats"],
+              "query": [
+                {
+                  "key": "id_kelas",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Attendance Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"hadir\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/absen/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "absen", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Classes (Kelas)",
+      "item": [
+        {
+          "name": "Get All Classes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas", "all"]
+            }
+          }
+        },
+        {
+          "name": "Get Classes by Teacher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas?guru_id=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas"],
+              "query": [
+                {
+                  "key": "guru_id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Class Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create New Class",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama_kelas\": \"XI-IPA\",\n  \"guru_id\": \"1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas"]
+            }
+          }
+        },
+        {
+          "name": "Update Class",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nama_kelas\": \"XI-IPA Updated\",\n  \"guru_id\": \"1\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas/3",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas", "3"]
+            }
+          }
+        },
+        {
+          "name": "Delete Class",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/kelas/3",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "kelas", "3"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
