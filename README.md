@@ -173,15 +173,3 @@ This unified backend replaces:
 4. **Improved Security**: Enhanced JWT middleware with role checking
 5. **Better Error Handling**: Comprehensive error responses
 6. **Logging**: Detailed request logging for debugging
-
-## 🤝 Contributing
-
-1. Follow the existing code structure
-2. Add proper error handling
-3. Include logging for debugging
-4. Test all endpoints before committing
-5. Update documentation for new features
-
-## 📄 License
-
-This project is for educational purposes.
