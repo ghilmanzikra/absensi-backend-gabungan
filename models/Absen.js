@@ -78,6 +78,7 @@ const Absen = {
 
   // Update absen status
   updateStatus: (id, status, callback) => {
+    // Query ini sudah benar, trigger redeploy 13 Juni
     const query = 'UPDATE absen SET status = ? WHERE id = ?';
     db.query(query, [status, id], callback);
   },
