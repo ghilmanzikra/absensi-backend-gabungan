@@ -4,7 +4,7 @@ Complete API documentation for the Student Attendance System unified backend.
 
 ## 🌐 Base URL
 ```
-https://absensi-backend-gabungan.up.railway.app
+https://absensi-backend-gabungan-production.up.railway.app
 ```
 
 ## 🔐 Authentication
@@ -730,14 +730,14 @@ Legacy student login endpoint
 
 #### Login as Student (Siswa)
 ```bash
-curl -X POST https://absensi-backend-gabungan.up.railway.app/api/auth/login \
+curl -X POST https://absensi-backend-gabungan-production.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "siswa1", "password": "siswa1"}'
 ```
 
 #### Login as Teacher (Guru)
 ```bash
-curl -X POST https://absensi-backend-gabungan.up.railway.app/api/auth/login \
+curl -X POST https://absensi-backend-gabungan-production.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "guru1", "password": "guru1"}'
 ```
@@ -745,12 +745,12 @@ curl -X POST https://absensi-backend-gabungan.up.railway.app/api/auth/login \
 #### Get Profile (with token)
 ```bash
 curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  https://absensi-backend-gabungan.up.railway.app/api/siswa/profile
+  https://absensi-backend-gabungan-production.up.railway.app/api/siswa/profile
 ```
 
 #### Submit Attendance
 ```bash
-curl -X POST https://absensi-backend-gabungan.up.railway.app/api/absen/submit \
+curl -X POST https://absensi-backend-gabungan-production.up.railway.app/api/absen/submit \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{

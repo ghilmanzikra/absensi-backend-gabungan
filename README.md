@@ -2,6 +2,48 @@
 
 Unified backend system that combines both student (siswa) and teacher (guru) functionalities for the attendance management system.
 
+## 🌐 Live Production URL
+```
+https://absensi-backend-gabungan-production.up.railway.app
+```
+
+**Status**: ✅ **DEPLOYED & READY TO USE**
+
+## 📱 For Frontend Developers
+
+### Quick Start Guide
+1. **Base URL**: `https://absensi-backend-gabungan-production.up.railway.app`
+2. **Documentation**: See `API_DOCUMENTATION.md` for complete API reference
+3. **Authentication**: Use JWT tokens in Authorization header
+4. **Test Credentials**:
+   - **Student**: `username: siswa1`, `password: siswa1`
+   - **Teacher**: `username: guru1`, `password: guru1`
+
+### Essential Endpoints for Mobile App
+```
+POST /api/auth/login          # Login (both student & teacher)
+GET  /api/siswa/profile       # Student profile
+GET  /api/siswa/absensi       # Student attendance history
+GET  /api/guru/profile        # Teacher profile
+POST /api/absen/submit        # Submit attendance (teacher)
+GET  /api/absen               # Get attendance data
+GET  /api/kelas/all           # Get all classes
+```
+
+### Example Integration
+```javascript
+// Login example for Android/React Native
+const login = async (username, password) => {
+  const response = await fetch('https://absensi-backend-gabungan-production.up.railway.app/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await response.json();
+  return data; // Contains token and user info
+};
+```
+
 ## 🚀 Features
 
 - **Authentication System**: Login for both students and teachers
@@ -122,6 +164,15 @@ Authorization: Bearer <your_jwt_token>
 ```
 
 ### Login Example
+
+**Production (Live Server):**
+```bash
+curl -X POST https://absensi-backend-gabungan-production.up.railway.app/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "siswa1", "password": "siswa1"}'
+```
+
+**Local Development:**
 ```bash
 curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -155,7 +206,12 @@ node tools/addUser.js
 
 ## 🚦 Testing
 
-Test the server is running:
+**Test Production Server:**
+```bash
+curl https://absensi-backend-gabungan-production.up.railway.app/health
+```
+
+**Test Local Server:**
 ```bash
 curl http://localhost:5000/health
 ```
